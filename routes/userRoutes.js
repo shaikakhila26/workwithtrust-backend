@@ -70,7 +70,7 @@ router.post('/upload-profile-image', protect, upload.single('image'), async (req
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const imageUrl = `https://workwithtrust-backend.onrender.com/uploads/${req.file.filename}`;
     user.image = imageUrl;
     await user.save();
 
