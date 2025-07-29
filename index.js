@@ -50,9 +50,15 @@ const app = express();
 app.use('/api', webhookRoute); // raw body route
 
 
+
+const allowedOrigins= [
+ 'https://workwithtrust-frontend-5z6cru9pp-akhilas-projects-01434bdf.vercel.app/',
+ 'http://localhost:5173'
+]
 // Middleware
 app.use(cors({
-  origin:`http://localhost:5173`, // Adjust to your frontend URL
+  origin:allowedOrigins,
+   // Adjust to your frontend URL
   credentials: true, // Allow cookies to be sent
 }));
 app.use(express.json());
@@ -193,7 +199,9 @@ httpServer.listen(PORT, () => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:5173'], // Allow both origins
+    origin: ['http://localhost:3000', 'http://localhost:5173',
+      'https://workwithtrust-frontend-5z6cru9pp-akhilas-projects-01434bdf.vercel.app/'
+    ], // Allow both origins
     methods: ['GET', 'POST'],
     credentials: true,
     allowedHeaders: ['Authorization'],

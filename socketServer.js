@@ -11,7 +11,9 @@ export let io;
 export const setupSocket = (httpServer) => {
   io = new Server(httpServer, {
     cors: {
-      origin: ["http://localhost:3000", "http://localhost:5173"], // Allow both origins
+      origin: ["http://localhost:3000", "http://localhost:5173",
+        'https://workwithtrust-frontend-5z6cru9pp-akhilas-projects-01434bdf.vercel.app/'
+      ], // Allow both origins
       methods: ["GET", "POST"],
       credentials: true,
       allowedHeaders: ["Authorization"],
