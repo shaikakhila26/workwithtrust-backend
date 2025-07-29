@@ -14,7 +14,7 @@ import earningsRoutes from './routes/earningsRoutes.js';
 import webhookRoute from './routes/webhook.js'; // must come before express.json()
 import otherRoutes from './routes/otherRoutes.js';
 import connectDB from './config/db.js';
-import stripeRoutes from './routes/stripeRoutes.js';
+import stripeRoutes from './routes/StripeRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import User from './models/User.js'; // Adjust path
