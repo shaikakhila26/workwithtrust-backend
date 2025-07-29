@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+
+# Database
+*.db
+*.sqlite
+data/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Miscellaneous
+*.pem
+*.crt
+*.key
+
+# Test coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Uploads or temporary files
+uploads/
+temp/
