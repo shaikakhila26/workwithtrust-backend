@@ -2,6 +2,39 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
+const uploadDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('📂 Created uploads directory:', uploadDir);
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir); // Use dynamic path
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + file.originalname;
+    cb(null, uniqueSuffix);
+  },
+});
+
+const upload = multer({ storage });
+
+export default upload;
+
+
+
+
+
+
+
+
+
+
+/*import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+
 // Store uploads temporarily before sending to Cloudinary
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -30,3 +63,4 @@ const upload = multer({ storage ,fileFilter: (req, file, cb) => {
 
 
 export default upload;
+*/
