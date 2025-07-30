@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Get users with whom the authenticated user has chatted
 router.get('/chat-users/:userId', protect, async (req, res) => {
-  console.log('🔥 GET /api/messages/chat-users/:userId hit!');
+  console.log('🔥 GET /chat-users/:userId hit!');
   const { userId } = req.params;
 
   if (userId !== req.user._id.toString()) {
