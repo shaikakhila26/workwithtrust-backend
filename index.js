@@ -172,6 +172,10 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error("❌ MongoDB connection failed:", error);
 });
 
+
+app.head('/', (req, res) => {
+  res.status(200).send(); // Empty response for HEAD
+});
 // Test Route
 app.get('/', (req, res) => {
   res.send('🚀 WorkWithTrust Backend API is Live!');
