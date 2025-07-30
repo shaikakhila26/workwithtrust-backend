@@ -134,11 +134,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // ✅ Ser
 app.use('/api/users', userRoutes);
 app.use('/api/reviews', reviewRoutes)
 
-//always at last
-app.use((req, res) => {
-  console.log('🔍 No route matched:', req.method, req.url);
-  res.status(404).json({ message: 'Route not found' });
-});
+
 
 
 
@@ -186,6 +182,11 @@ app.get('/debug', (req, res) => {
   res.json({ message: "✅ Backend is working!" });
 });
 
+//always at last
+app.use((req, res) => {
+  console.log('🔍 No route matched:', req.method, req.url);
+  res.status(404).json({ message: 'Route not found' });
+});
 
 
 // Create server & bind Socket.io
