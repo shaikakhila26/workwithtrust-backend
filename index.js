@@ -204,75 +204,10 @@ httpServer.listen(PORT, () => {
 */
 
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ['http://localhost:3000', 'http://localhost:5173',
-      'https://workwithtrust-frontend.vercel.app/'
-    ], // Allow both origins
-    methods: ['GET', 'POST'],
-    credentials: true,
-    allowedHeaders: ['Authorization'],
-  },
-  allowEIO3: true,
-});
+const io = setupSocket(server);
 app.set('socketio', io);
 console.log('✅ Socket.IO set on app');
 
-io.use(async (socket, next) => {
-  const token = socket.handshake.auth.token || socket.handshake.headers['authorization']?.split(' ')[1];
-
-//console.log('Socket token received:', token);
-console.log('🔍 Socket handshake:', {
-    auth: socket.handshake.auth,
-    headers: socket.handshake.headers,
-    query: socket.handshake.query,
-  });
-
-  if (!token) {
-    console.error('❌ Socket connection rejected: Token not provided');
-    return next(new Error('Authentication error'));
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select('_id role name ').lean();
-    if (!user) {
-      console.error('❌ Socket connection rejected: User not found', decoded.id);
-      return next(new Error('Authentication error'));
-    }
-    socket.user = user;
-    console.log('🔐 Socket authenticated user:', user._id, 'Role:', user.role);
-    next();
-  } catch (error) {
-    console.error('❌ Socket token verification error:', error.name, error.message);
-    next(new Error('Authentication error'));
-  }
-});
-
-io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id, 'User:', socket.user?._id);
-  socket.on('joinRoom', (room) => {
-    if (room && socket.user?._id) {
-    socket.join(room);
-    console.log('User', socket.user?._id, 'joined room:', room);
-    io.to(room).emit('userJoined', { userId: socket.user._id }); // Notify room
-    }
-    else{
-      console.warn('❌ joinRoom failed: Invalid room or user ID');
-    }
-  });
-  socket.on('send-message', (message) => {
-    if (message.receiverId && socket.user?._id) {
-      io.to(message.receiverId).emit('receiveMessage', message);
-    }
-  });
-  socket.on('disconnect', () => {
-    console.log('❌ User disconnected:', socket.id);
-  });
-  socket.on('error', (error) => {
-    console.error('❌ Socket error:', error.message);
-  });
-});
 
 
 
