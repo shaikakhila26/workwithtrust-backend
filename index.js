@@ -69,6 +69,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS','PUT','DELETE'], // Include OPTIONS for preflight
   allowedHeaders: ['Authorization', 'Content-Type'],
 }));
+app.options('*',cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

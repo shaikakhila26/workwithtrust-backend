@@ -11,9 +11,19 @@ export let io;
 export const setupSocket = (httpServer) => {
   io = new Server(httpServer, {
     cors: {
-      origin: ["http://localhost:3000", "http://localhost:5173",
-        'https://workwithtrust-frontend.vercel.app/'
-      ], // Allow both origins
+      origin: (origin, callback) => {
+        const allowedOrigins = [
+          "https://workwithtrust-frontend.vercel.app",
+          "http://localhost:3000",
+          "http://localhost:5173",
+        ];
+        console.log('🔍 Checking Socket.io origin:', origin);
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, origin); // Return the origin to set Access-Control-Allow-Origin
+        } else {
+          callback(new Error('CORS policy: Origin not allowed'));
+        }
+      },
       methods: ["GET", "POST"],
       credentials: true,
       allowedHeaders: ["Authorization"],
