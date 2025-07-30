@@ -2,7 +2,6 @@
 
 import express from 'express';
 import http from 'http';
-import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -18,7 +17,7 @@ import stripeRoutes from './routes/StripeRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import User from './models/User.js'; // Adjust path
-//import { setupSocket } from "./socketServer.js";
+
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
@@ -52,15 +51,22 @@ app.use('/api', webhookRoute); // raw body route
 
 
 const allowedOrigins= [
- 'https://workwithtrust-frontend.vercel.app/',
+ 'https://workwithtrust-frontend.vercel.app',
+ 'http://localhost:3000',
  'http://localhost:5173'
 ]
 // Middleware
 app.use(cors({
-  origin:allowedOrigins,
-   // Adjust to your frontend URL
+  origin:(origin, callback) => {
+    console.log('🔍 Checking Express origin:', origin);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy: Origin not allowed'));
+    }
+  },
   credentials: true, // Allow cookies to be sent
-  methods: ['GET', 'POST', 'OPTIONS'], // Include OPTIONS for preflight
+  methods: ['GET', 'POST', 'OPTIONS','PUT','DELETE'], // Include OPTIONS for preflight
   allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 app.use(express.json());
@@ -213,4 +219,4 @@ console.log('✅ Socket.IO set on app');
 
 
 
-server.listen(process.env.PORT, () => console.log('Server running on port 5000 with Socket.IO'));
+server.listen(process.env.PORT, () => console.log('Server running on port ${process.env.PORT} with Socket.io'));
