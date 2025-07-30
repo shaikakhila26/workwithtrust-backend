@@ -46,8 +46,8 @@ router.post('/create-checkout-session', protect, async (req, res) => {
         },
       ],
       mode: 'payment',
-      success_url: `https://workwithtrust-frontend-5z6cru9pp-akhilas-projects-01434bdf.vercel.app/success?gigId=${gigId}&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://workwithtrust-frontend-5z6cru9pp-akhilas-projects-01434bdf.vercel.app/cancel`,
+      success_url: `https://workwithtrust-frontend-mgnv9usvr-akhilas-projects-01434bdf.vercel.app/success?gigId=${gigId}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://workwithtrust-frontend-mgnv9usvr-akhilas-projects-01434bdf.vercel.app/cancel`,
       metadata: {
         clientId: userId.toString(),
         gigId: gig._id.toString(),
