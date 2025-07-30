@@ -210,10 +210,6 @@ httpServer.listen(PORT, () => {
 
 */
 
-// Catch-all route to serve index.html for SPA
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 
 
