@@ -140,7 +140,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // ✅ Ser
 
 
 
-app.use('/api/users', userRoutes);
+
 app.use('/api/reviews', reviewRoutes)
 
 
