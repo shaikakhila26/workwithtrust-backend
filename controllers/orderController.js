@@ -44,11 +44,8 @@ export const getUserOrders = async (req, res) => {
 
     console.log('Formatted orders:', formatted); // Debug: Log final formatted orders
 
-    if (formatted.length === 0) {
-      return res.status(404).json({ message: 'No orders found for this user' });
-    }
-
-    res.json(formatted);
+    res.json(formatted.length > 0 ? formatted : []); // Return 200 with empty array if no orders
+    
   } catch (err) {
     console.error('error in getUserOrders:', err);
     res.status(500).json({ message: 'Server error', error: err.message });
