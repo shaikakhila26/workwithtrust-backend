@@ -60,6 +60,8 @@ app.use(cors({
   origin:allowedOrigins,
    // Adjust to your frontend URL
   credentials: true, // Allow cookies to be sent
+  methods: ['GET', 'POST', 'OPTIONS'], // Include OPTIONS for preflight
+  allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
