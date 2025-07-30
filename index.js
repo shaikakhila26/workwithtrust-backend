@@ -52,7 +52,7 @@ app.use('/api', webhookRoute); // raw body route
 
 
 const allowedOrigins= [
- 'https://workwithtrust-frontend-mgnv9usvr-akhilas-projects-01434bdf.vercel.app/',
+ 'https://workwithtrust-frontend.vercel.app/',
  'http://localhost:5173'
 ]
 // Middleware
@@ -207,7 +207,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ['http://localhost:3000', 'http://localhost:5173',
-      'https://workwithtrust-frontend-mgnv9usvr-akhilas-projects-01434bdf.vercel.app/'
+      'https://workwithtrust-frontend.vercel.app/'
     ], // Allow both origins
     methods: ['GET', 'POST'],
     credentials: true,
